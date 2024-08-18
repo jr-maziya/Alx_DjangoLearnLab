@@ -23,3 +23,5 @@ class LibraryDetails_view(DetailView):
     book = self.get_object()  # Retrieve the current book instance
     context['average_rating'] = book.get_average_rating() 
 
+return render(request, 'relationship_app/library_detail.html')
+
