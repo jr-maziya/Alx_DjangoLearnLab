@@ -12,6 +12,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render
 
 # Create your views here.
 def book_list_view(request):
@@ -62,3 +64,20 @@ class RegisterView(CreateView):
 
 "UserCreationForm()", "relationship_app/register.html"
 
+def check_role(user, role):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == role
+
+# Admin view
+@user_passes_test(lambda user: check_role(user, 'Admin'))
+def admin_view(request):
+    return render(request, 'authentication/admin_view.html')
+
+# Librarian view
+@user_passes_test(lambda user: check_role(user, 'Librarian'))
+def librarian_view(request):
+    return render(request, 'authentication/librarian_view.html')
+
+# Member view
+@user_passes_test(lambda user: check_role(user, 'Member'))
+def member_view(request):
+    return render(request, 'authentication/member_view.html')
