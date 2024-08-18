@@ -10,4 +10,7 @@ urlpatterns = [
     "LogoutView.as_view(template_name="logut.html, 
     "LoginView.as_view(template_name="login.html"
     "views.register"
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('register/', RegisterView.as_view(), name='register'),
 ]

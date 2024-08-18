@@ -8,6 +8,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth import login
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 def book_list_view(request):
@@ -41,4 +45,18 @@ def LoginView(request):
 
 def Register(request):
     return render(request, 'register.html')
+
+class CustomLoginView(LoginView):
+    template_name = 'authentication/login.html'
+    redirect_authenticated_user = True
+
+# Logout view
+class CustomLogoutView(LogoutView):
+    template_name = 'authentication/logout.html'
+
+# Registration view
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'authentication/register.html'
+    success_url = reverse_lazy('login')
 
