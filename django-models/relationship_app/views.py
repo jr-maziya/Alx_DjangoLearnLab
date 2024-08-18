@@ -70,14 +70,14 @@ def check_role(user, role):
 # Admin view
 @user_passes_test(lambda user: check_role(user, 'Admin'))
 def admin_view(request):
-    return render(request, 'authentication/admin_view.html')
+    return render(request, 'relationship_app/admin_view.html')
 
 # Librarian view
 @user_passes_test(lambda user: check_role(user, 'Librarian'))
 def librarian_view(request):
-    return render(request, 'authentication/librarian_view.html')
+    return render(request, 'relationship_app/librarian_view.html')
 
 # Member view
 @user_passes_test(lambda user: check_role(user, 'Member'))
 def member_view(request):
-    return render(request, 'authentication/member_view.html')
+    return render(request, 'relationship_app/member_view.html')
